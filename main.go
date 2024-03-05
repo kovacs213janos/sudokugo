@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 type Sudoku [Size][Size]int
@@ -93,6 +94,8 @@ func randomRemove(tabla Sudoku, csere int) Sudoku {
 }
 
 func main() {
+	start := time.Now()
+
 	Iteraciok = 0
 	Tabla_Eredeti := Sudoku{
 		{5, 3, 4, 6, 7, 8, 9, 1, 2},
@@ -128,6 +131,8 @@ func main() {
 		kiiratasTabla(result)
 		fmt.Printf("A megoldásig vezető iterációk száma: %d\n", Iteraciok)
 	}
+	elteltido := time.Since(start) // Calculate the elapsed time
+	fmt.Printf("Running time: %s\n", &elteltido)
 }
 
 //TODO iterációk számát globális változó helyett függvényparaméterként is át lehetne adni, pl.
