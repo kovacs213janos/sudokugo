@@ -129,3 +129,8 @@ func main() {
 		fmt.Printf("A megoldásig vezető iterációk száma: %d\n", Iteraciok)
 	}
 }
+
+//TODO iterációk számát globális változó helyett függvényparaméterként is át lehetne adni, pl.
+// func Solver(tabla Sudoku) ([Size][Size]int, bool, int) {
+//				return tabla, false, Iteraciok
+//	megoldas, bool, Iteraciok := Solver(tabla)
