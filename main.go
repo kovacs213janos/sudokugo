@@ -73,7 +73,6 @@ func szambekeres() int {
 			fmt.Println("A kapott szám nem 1 és 81 között van!")
 			continue
 		}
-
 		break
 	}
 	return szam
