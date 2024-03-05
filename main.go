@@ -47,7 +47,7 @@ func Solver(tabla Sudoku) ([Size][Size]int, bool) {
 			}
 		}
 	}
-	return tabla, true
+	return tabla, true // ilyenkor is kész
 }
 
 func kiiratasTabla(tabla Sudoku) {
@@ -122,9 +122,10 @@ func main() {
 	fmt.Println("")
 
 	result, v := Solver(Tabla_Random)
-	if v {
+	if !v {
+		fmt.Printf("Nem talált jó megoldást, iterációk száma: %d\n", Iteraciok)
+	} else {
 		kiiratasTabla(result)
 		fmt.Printf("A megoldásig vezető iterációk száma: %d\n", Iteraciok)
 	}
-
 }
