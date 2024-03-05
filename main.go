@@ -114,7 +114,7 @@ func main() {
 	fmt.Println("")
 	randomSzam := szambekeres()
 	fmt.Printf("A kapott szám: %d\n", randomSzam)
-	fmt.Println(" Ennyit fogunk véletlenszerűen kivenni az eredeti táblából.")
+	fmt.Println(" Ennyit fogunk véletlenszerűen kivenni az eredeti táblából.\n")
 
 	Tabla_Random := randomRemove(Tabla_Eredeti, randomSzam)
 	fmt.Println("Ez a feladat:")
@@ -122,7 +122,6 @@ func main() {
 
 	fmt.Println("")
 	fmt.Println("Ez lett a megoldás:")
-	fmt.Println("")
 
 	result, v := Solver(Tabla_Random)
 	if !v {
