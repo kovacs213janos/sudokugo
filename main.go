@@ -7,10 +7,6 @@ import (
 
 type Sudoku [Size][Size]int
 
-type Cella struct {
-	Sor, Oszlop int
-}
-
 const Size = 9
 
 func Validalas(tabla [Size][Size]int, sor, oszlop, szam int) bool {
