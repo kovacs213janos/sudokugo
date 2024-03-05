@@ -9,7 +9,7 @@ type Sudoku [Size][Size]int
 
 const Size = 9
 
-func Validalas(tabla [Size][Size]int, sor, oszlop, szam int) bool {
+func Validalas(tabla Sudoku, sor, oszlop, szam int) bool {
 	for i := 0; i < Size; i++ {
 		if tabla[sor][i] == szam || tabla[i][oszlop] == szam {
 			return false
@@ -26,7 +26,7 @@ func Validalas(tabla [Size][Size]int, sor, oszlop, szam int) bool {
 	return true
 }
 
-func Solver(tabla [Size][Size]int) ([Size][Size]int, bool) {
+func Solver(tabla Sudoku) ([Size][Size]int, bool) {
 	for sor := 0; sor < Size; sor++ {
 		for oszlop := 0; oszlop < Size; oszlop++ {
 			if tabla[sor][oszlop] == 0 {
@@ -91,7 +91,7 @@ func randomRemove(tabla Sudoku, csere int) Sudoku {
 }
 
 func main() {
-	Tabla_Eredeti := [Size][Size]int{
+	Tabla_Eredeti := Sudoku{
 		{5, 3, 4, 6, 7, 8, 9, 1, 2},
 		{6, 7, 2, 1, 9, 5, 3, 4, 8},
 		{1, 9, 8, 3, 4, 2, 5, 7, 6},
