@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 type Sudoku [Size][Size]int
@@ -24,21 +25,36 @@ func kiiratasTabla(tabla Sudoku) {
 func szambekeres() int {
 	var szam int
 	for {
-		fmt.Print("Írj ide egy számot 1 és 89 között ")
+		fmt.Print("Írj ide egy számot 1 és 81 között ")
 		_, err := fmt.Scanln(&szam)
 		if err != nil {
 			fmt.Println("Invalid szám. Normálisan!")
 			continue
 		}
 
-		if szam < 1 || szam > 89 {
-			fmt.Println("A kapott szám nem 1 és 89 között van!")
+		if szam < 1 || szam > 81 {
+			fmt.Println("A kapott szám nem 1 és 81 között van!")
 			continue
 		}
 
 		break
 	}
 	return szam
+}
+
+func randomRemove(tabla Sudoku, csere int) Sudoku {
+	for i := 0; i < csere; i++ {
+		sor := rand.Intn(Size)
+		oszlop := rand.Intn(Size)
+
+		for tabla[sor][oszlop] == 0 {
+			sor = rand.Intn(Size)
+			oszlop = rand.Intn(Size)
+		}
+
+		tabla[sor][oszlop] = 0
+	}
+	return tabla
 }
 
 func main() {
@@ -58,6 +74,10 @@ func main() {
 	kiiratasTabla(Tabla_Eredeti)
 	fmt.Println("")
 	randomSzam := szambekeres()
-	fmt.Println("A kapott szám:", randomSzam)
-	fmt.Println("Ennyit fogunk véletlenszerűen kivenni az eredeti táblából.")
+	fmt.Printf("A kapott szám:", randomSzam)
+	fmt.Println(" Ennyit fogunk véletlenszerűen kivenni az eredeti táblából.")
+
+	Tabla_Random := randomRemove(Tabla_Eredeti, randomSzam)
+
+	kiiratasTabla(Tabla_Random)
 }
