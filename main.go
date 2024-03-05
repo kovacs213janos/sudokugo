@@ -7,6 +7,8 @@ import (
 
 type Sudoku [Size][Size]int
 
+var Iteraciok int
+
 const Size = 9
 
 func Validalas(tabla Sudoku, sor, oszlop, szam int) bool {
@@ -27,6 +29,7 @@ func Validalas(tabla Sudoku, sor, oszlop, szam int) bool {
 }
 
 func Solver(tabla Sudoku) ([Size][Size]int, bool) {
+	Iteraciok++
 	for sor := 0; sor < Size; sor++ {
 		for oszlop := 0; oszlop < Size; oszlop++ {
 			if tabla[sor][oszlop] == 0 {
@@ -91,6 +94,7 @@ func randomRemove(tabla Sudoku, csere int) Sudoku {
 }
 
 func main() {
+	Iteraciok = 0
 	Tabla_Eredeti := Sudoku{
 		{5, 3, 4, 6, 7, 8, 9, 1, 2},
 		{6, 7, 2, 1, 9, 5, 3, 4, 8},
@@ -107,7 +111,7 @@ func main() {
 	kiiratasTabla(Tabla_Eredeti)
 	fmt.Println("")
 	randomSzam := szambekeres()
-	fmt.Printf("A kapott szám:", randomSzam)
+	fmt.Printf("A kapott szám: %d\n", randomSzam)
 	fmt.Println(" Ennyit fogunk véletlenszerűen kivenni az eredeti táblából.")
 
 	Tabla_Random := randomRemove(Tabla_Eredeti, randomSzam)
@@ -121,6 +125,7 @@ func main() {
 	result, v := Solver(Tabla_Random)
 	if v {
 		kiiratasTabla(result)
+		fmt.Printf("A megoldásig vezető iterációk száma: %d\n", Iteraciok)
 	}
 
 }
