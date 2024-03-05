@@ -13,6 +13,44 @@ type Cella struct {
 
 const Size = 9
 
+func Validalas(tabla [Size][Size]int, sor, oszlop, szam int) bool {
+	for i := 0; i < Size; i++ {
+		if tabla[sor][i] == szam || tabla[i][oszlop] == szam {
+			return false
+		}
+	}
+	startSor, startOszlop := sor-sor%3, oszlop-oszlop%3
+	for i := startSor; i < startSor+3; i++ {
+		for j := startOszlop; j < startOszlop+3; j++ {
+			if tabla[i][j] == szam {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func Solver(tabla [Size][Size]int) ([Size][Size]int, bool) {
+	for sor := 0; sor < Size; sor++ {
+		for oszlop := 0; oszlop < Size; oszlop++ {
+			if tabla[sor][oszlop] == 0 {
+				for szam := 1; szam <= 9; szam++ {
+					if Validalas(tabla, sor, oszlop, szam) {
+						tabla[sor][oszlop] = szam
+						Tabla_Kesz, elkeszult := Solver(tabla) //rekurziv hivas
+						if elkeszult {
+							return Tabla_Kesz, true // ilyenkor van kesz
+						}
+						tabla[sor][oszlop] = 0
+					}
+				}
+				return tabla, false
+			}
+		}
+	}
+	return tabla, true
+}
+
 func kiiratasTabla(tabla Sudoku) {
 	for i := 0; i < Size; i++ {
 		for j := 0; j < Size; j++ {
@@ -51,7 +89,6 @@ func randomRemove(tabla Sudoku, csere int) Sudoku {
 			sor = rand.Intn(Size)
 			oszlop = rand.Intn(Size)
 		}
-
 		tabla[sor][oszlop] = 0
 	}
 	return tabla
@@ -78,6 +115,16 @@ func main() {
 	fmt.Println(" Ennyit fogunk véletlenszerűen kivenni az eredeti táblából.")
 
 	Tabla_Random := randomRemove(Tabla_Eredeti, randomSzam)
-
+	fmt.Println("Ez a feladat:")
 	kiiratasTabla(Tabla_Random)
+
+	fmt.Println("")
+	fmt.Println("Ez lett a megoldás:")
+	fmt.Println("")
+
+	result, v := Solver(Tabla_Random)
+	if v {
+		kiiratasTabla(result)
+	}
+
 }
