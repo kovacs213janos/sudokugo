@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"runtime"
 	"time"
 )
 
@@ -132,6 +133,10 @@ func main() {
 	}
 	elteltido := time.Since(start) // Calculate the elapsed time
 	fmt.Printf("Running time: %s\n", &elteltido)
+
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	fmt.Printf("Memória használat: %v bytes\n", m.Alloc) // Alloc a heap-en jelenleg használt memória
 }
 
 //TODO iterációk számát globális változó helyett függvényparaméterként is át lehetne adni, pl.
