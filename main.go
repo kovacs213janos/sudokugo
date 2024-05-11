@@ -16,6 +16,7 @@ const Size = 9
 func Validalas(tabla Sudoku, sor, oszlop, szam int) bool {
 	for i := 0; i < Size; i++ {
 		if tabla[sor][i] == szam || tabla[i][oszlop] == szam {
+			fmt.Println("debug1", sor, oszlop, szam)
 			return false
 		}
 	}
@@ -23,6 +24,7 @@ func Validalas(tabla Sudoku, sor, oszlop, szam int) bool {
 	for i := startSor; i < startSor+3; i++ {
 		for j := startOszlop; j < startOszlop+3; j++ {
 			if tabla[i][j] == szam {
+				fmt.Println("debug2")
 				return false
 			}
 		}
@@ -38,7 +40,10 @@ func Solver(tabla Sudoku) ([Size][Size]int, bool) {
 				for szam := 1; szam <= 9; szam++ {
 					if Validalas(tabla, sor, oszlop, szam) {
 						tabla[sor][oszlop] = szam
+						fmt.Printf("Legutóbb kicserélt elem: sor: %d, oszlop: %d, elem: %d\n", sor, oszlop, szam)
+
 						Tabla_Kesz, elkeszult := Solver(tabla) //rekurziv hivas
+
 						if elkeszult {
 							return Tabla_Kesz, true // ilyenkor van kesz
 						}
@@ -127,6 +132,7 @@ func main() {
 	result, v := Solver(Tabla_Random)
 	if !v {
 		fmt.Printf("Nem talált jó megoldást, iterációk száma: %d\n", Iteraciok)
+		kiiratasTabla(result)
 	} else {
 		kiiratasTabla(result)
 		fmt.Printf("A megoldásig vezető iterációk száma: %d\n", Iteraciok)
